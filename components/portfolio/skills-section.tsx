@@ -1,194 +1,167 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect, useCallback } from "react"
+import { useRef } from "react"
+import { 
+  SiPython, SiCplusplus, SiC, SiJavascript, SiMysql, 
+  SiPandas, SiNumpy, SiScikitlearn, SiTensorflow, SiPytorch,
+  SiReact, SiNextdotjs, SiTailwindcss, SiHtml5, SiCss,
+  SiDocker, SiKubernetes, SiLinux, SiGithubactions,
+  SiGit, SiGithub, SiJupyter 
+} from "react-icons/si"
+import { VscVscode } from "react-icons/vsc"
+import { FaCloud, FaAws } from "react-icons/fa"
 
-const skills = [
-  { name: "Python", size: 90 },
-  { name: "C++", size: 85 },
-  { name: "C", size: 80 },
-  { name: "HTML & CSS", size: 85 },
-  { name: "Pandas", size: 88 },
-  { name: "NumPy", size: 88 },
-  { name: "Scikit-learn", size: 85 },
-  { name: "Matplotlib", size: 82 },
-  { name: "Seaborn", size: 80 },
-  { name: "MySQL", size: 75 },
-  { name: "Oracle Cloud", size: 70 },
-  { name: "Jupyter", size: 80 },
-  { name: "Power BI", size: 75 },
-  { name: "Excel", size: 85 },
-  { name: "Git", size: 80 },
-
+// Replaces the emojis with sleek Si/Hi icons, and consistent naming
+const skillCategories = [
+  {
+    title: "Programming Languages",
+    skills: [
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+      { name: "C++", icon: SiCplusplus, color: "#00599C" },
+      { name: "C", icon: SiC, color: "#A8B9CC" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "SQL", icon: SiMysql, color: "#4479A1" }, // General representation for SQL
+    ],
+  },
+  {
+    title: "AI & Data Science",
+    skills: [
+      { name: "Pandas", icon: SiPandas, color: "#150458" },
+      { name: "NumPy", icon: SiNumpy, color: "#013243" },
+      { name: "Scikit-Learn", icon: SiScikitlearn, color: "#F7931E" },
+      { name: "TensorFlow", icon: SiTensorflow, color: "#FF6F00" },
+      { name: "PyTorch", icon: SiPytorch, color: "#EE4C2C" },
+    ],
+  },
+  {
+    title: "Web Development",
+    skills: [
+      { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS3", icon: SiCss, color: "#1572B6" },
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    ],
+  },
+  {
+    title: "DevOps & Cloud",
+    skills: [
+      { name: "Docker", icon: SiDocker, color: "#2496ED" },
+      { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
+      { name: "AWS", icon: FaAws, color: "#232F3E" },
+      { name: "CI/CD", icon: SiGithubactions, color: "#2088FF" },
+      { name: "Linux", icon: SiLinux, color: "#FCC624" },
+    ],
+  },
+  {
+    title: "Tools & Environments",
+    skills: [
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub, color: "#FFFFFF" },
+      { name: "VS Code", icon: VscVscode, color: "#007ACC" },
+      { name: "Jupyter", icon: SiJupyter, color: "#F37626" },
+      { name: "Oracle Cloud", icon: FaCloud, color: "#F80000" },
+    ],
+  },
 ]
-
-interface Bubble {
-  id: number
-  x: number
-  y: number
-  vx: number
-  vy: number
-  skill: { name: string; size: number }
-}
 
 export function SkillsSection() {
   const ref = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [bubbles, setBubbles] = useState<Bubble[]>([])
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [isHovering, setIsHovering] = useState(false)
-  const animationRef = useRef<number | null>(null)
 
-  // Initialize bubbles
-  useEffect(() => {
-    const initialBubbles = skills.map((skill, i) => ({
-      id: i,
-      x: Math.random() * 80 + 10,
-      y: Math.random() * 80 + 10,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      skill,
-    }))
-    setBubbles(initialBubbles)
-  }, [])
-
-  const animate = useCallback(() => {
-    setBubbles((prevBubbles) =>
-      prevBubbles.map((bubble) => {
-        let { x, y, vx, vy } = bubble
-        const bubbleSize = bubble.skill.size / 2
-
-        // Apply mouse repulsion if hovering
-        if (isHovering && containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect()
-          const mouseXPercent = ((mousePos.x - rect.left) / rect.width) * 100
-          const mouseYPercent = ((mousePos.y - rect.top) / rect.height) * 100
-
-          const dx = x - mouseXPercent
-          const dy = y - mouseYPercent
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 20) {
-            const force = (20 - distance) / 20
-            vx += (dx / distance) * force * 0.5
-            vy += (dy / distance) * force * 0.5
-          }
-        }
-
-        // Update position
-        x += vx
-        y += vy
-
-        // Bounce off walls
-        if (x < 5 || x > 95) vx = -vx * 0.8
-        if (y < 5 || y > 95) vy = -vy * 0.8
-
-        // Keep in bounds
-        x = Math.max(5, Math.min(95, x))
-        y = Math.max(5, Math.min(95, y))
-
-        // Add some friction
-        vx *= 0.99
-        vy *= 0.99
-
-        // Add slight random movement
-        vx += (Math.random() - 0.5) * 0.02
-        vy += (Math.random() - 0.5) * 0.02
-
-        return { ...bubble, x, y, vx, vy }
-      })
-    )
-    animationRef.current = requestAnimationFrame(animate)
-  }, [isHovering, mousePos])
-
-  useEffect(() => {
-    animationRef.current = requestAnimationFrame(animate)
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
       }
     }
-  }, [animate])
+  }
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePos({ x: e.clientX, y: e.clientY })
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   }
 
   return (
-    <section id="skills" className="py-24 bg-[#0a0a0a]" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section id="skills" className="py-24 relative" ref={ref}>
+      <div className="container mx-auto px-6 relative z-10">
+        
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#FFFFFF] mb-4" style={{ fontFamily: "var(--font-space-grotesk)" }}>
-            Skills & <span className="text-[#D73B02]">Technologies</span>
-          </h2>
-          <div className="w-24 h-1 bg-[#D73B02] mx-auto rounded-full mb-4" />
-          <p className="text-[#AAAAAA]">Hover over the bubbles to interact!</p>
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full border border-[#D73B02]/20 bg-[#D73B02]/5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D73B02]"></span>
+              <span className="text-xs font-semibold text-[#D73B02] tracking-wide uppercase">Capabilities</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#FFFFFF] leading-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              Technical <span className="text-[#D73B02]">Arsenal.</span>
+            </h2>
+          </div>
+          <p className="text-[#AAAAAA] max-w-md text-base md:text-lg">
+            A carefully curated set of tools and technologies I utilize to engineer robust, high-performance applications.
+          </p>
         </motion.div>
 
-        <motion.div
-          ref={containerRef}
-          className="relative h-[500px] md:h-[600px] rounded-2xl border border-[#2a2a2a] bg-[#000000]/50 overflow-hidden"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+        {/* Categories Grid */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="flex flex-col gap-16"
         >
-          {/* Background grid */}
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: "radial-gradient(circle, #D73B02 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
-
-          {bubbles.map((bubble, index) => {
-            const size = bubble.skill.size * 0.8 + 40
-            return (
-              <motion.div
-                key={bubble.id}
-                className="absolute flex items-center justify-center cursor-pointer"
-                style={{
-                  left: `${bubble.x}%`,
-                  top: `${bubble.y}%`,
-                  width: size,
-                  height: size,
-                  transform: "translate(-50%, -50%)",
-                }}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                whileHover={{ scale: 1.2, zIndex: 10 }}
-              >
-                <div
-                  className="w-full h-full rounded-full flex items-center justify-center text-center p-2 transition-all duration-300 hover:shadow-[0_0_30px_rgba(215,59,2,0.5)]"
-                  style={{
-                    background: `radial-gradient(circle at 30% 30%, rgba(215, 59, 2, 0.3), rgba(215, 59, 2, 0.1))`,
-                    border: "1px solid rgba(215, 59, 2, 0.3)",
-                    backdropFilter: "blur(8px)",
-                  }}
-                >
-                  <span
-                    className="text-[#FFFFFF] font-medium"
-                    style={{
-                      fontSize: Math.max(10, size * 0.15),
-                    }}
-                  >
-                    {bubble.skill.name}
-                  </span>
+          {skillCategories.map((category) => (
+            <motion.div key={category.title} variants={itemVariants} className="border-t border-[#222222] pt-8">
+              <div className="flex flex-col md:flex-row gap-8 lg:gap-16">
+                
+                {/* Category Title Area */}
+                <div className="w-full md:w-1/3 lg:w-1/4">
+                  <h3 className="text-xl font-semibold text-[#FFFFFF] tracking-tight mb-2">
+                    {category.title}
+                  </h3>
                 </div>
-              </motion.div>
-            )
-          })}
+                
+                {/* Skills Interactive Badges Container */}
+                <div className="w-full md:w-2/3 lg:w-3/4 flex flex-wrap gap-3">
+                  {category.skills.map((skill, i) => (
+                    <motion.div 
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.05, duration: 0.3 }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -5, scale: 1.05 }}
+                      className="group relative flex items-center gap-2.5 px-4 py-2.5 bg-[#111111]/40 backdrop-blur-md border border-[#ffffff]/5 hover:border-[#D73B02]/50 rounded-xl transition-colors duration-300 cursor-default overflow-hidden shadow-lg"
+                    >
+                      {/* Premium glow on hover */}
+                      <div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                        style={{ background: `radial-gradient(circle at center, ${skill.color} 0%, transparent 70%)` }}
+                      />
+                      
+                      <div className="relative z-10 flex items-center justify-center w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-md" style={{ color: skill.color }}>
+                        <skill.icon className="w-full h-full drop-shadow-[0_0_8px_currentColor]" />
+                      </div>
+                      
+                      <span className="relative z-10 text-sm font-medium text-[#CCCCCC] group-hover:text-[#FFFFFF] transition-colors">
+                        {skill.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
+
       </div>
     </section>
   )

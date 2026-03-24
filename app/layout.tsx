@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Inter, Space_Grotesk, Outfit } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import ParticleBackground from '@/components/ParticleBackground'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -13,12 +14,38 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk'
 });
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: '--font-outfit'
+});
+
 export const metadata: Metadata = {
-  title: 'Anmol Kannaujiya | AI & Data Science Portfolio',
-  description: 'Computer Science student focused on AI and Data Science. Building AI-driven systems that solve real-world problems.',
-  generator: 'v0.app',
-  keywords: ['AI', 'Data Science', 'Machine Learning', 'Python', 'Portfolio', 'Developer'],
-  authors: [{ name: 'Anmol Kannaujiya' }],
+  title: 'Anmol Kannaujiya | AI & Data Science Developer Portfolio',
+  description: 'Portfolio of Anmol Kannaujiya — Computer Science student specializing in AI, Data Science & Machine Learning. Building intelligent systems that solve real-world problems. Skilled in Python, TensorFlow, and cloud technologies.',
+  generator: 'Next.js',
+  keywords: ['Anmol Kannaujiya', 'AI Developer', 'Data Science', 'Machine Learning', 'Python', 'Portfolio', 'Full Stack Developer', 'DevOps', 'AWS', 'TensorFlow'],
+  authors: [{ name: 'Anmol Kannaujiya', url: 'https://github.com/Anmolkannaujiya' }],
+  creator: 'Anmol Kannaujiya',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    title: 'Anmol Kannaujiya | AI & Data Science Developer',
+    description: 'Computer Science student building AI-driven systems that solve real-world problems. Explore my projects, skills, and achievements.',
+    siteName: 'Anmol Kannaujiya Portfolio',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Anmol Kannaujiya | AI & Data Science Developer',
+    description: 'Computer Science student building AI-driven systems that solve real-world problems.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   icons: {
     icon: [
       {
@@ -51,8 +78,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased bg-[#000000] text-[#FFFFFF]`}>
-        {children}
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${outfit.variable} font-sans antialiased`} style={{ background: '#000', margin: 0 }}>
+        <ParticleBackground />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {children}
+        </div>
         <Analytics />
       </body>
     </html>

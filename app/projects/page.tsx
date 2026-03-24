@@ -52,7 +52,7 @@ const allProjects = [
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#000000] text-[#FFFFFF]">
+    <main className="min-h-screen text-[#FFFFFF]">
       <Navbar />
       <section className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
         <h1 className="text-4xl md:text-5xl font-bold mb-12 text-center">

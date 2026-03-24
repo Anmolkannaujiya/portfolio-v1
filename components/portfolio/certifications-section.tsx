@@ -1,52 +1,78 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "framer-motion"
 import { useRef, useState } from "react"
-import { ChevronLeft, ChevronRight, Award, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Award, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 
 const certifications = [
   {
     title: "Design and Implementation of HCI",
     issuer: "NPTEL",
-    date: "Nov’ 2025",
+    date: "Nov 2025",
     credential: "#",
+    color: "#3B82F6",
   },
   {
     title: "Oracle Cloud Infrastructure Foundations Associate",
     issuer: "Oracle University",
-    date: "Oct’ 2025",
+    date: "Oct 2025",
     credential: "#",
+    color: "#EF4444",
   },
   {
     title: "Web Development",
     issuer: "Cipherschools",
-    date: "Sept’ 2025",
+    date: "Sept 2025",
     credential: "#",
+    color: "#8B5CF6",
   },
   {
     title: "C Programming",
     issuer: "Udemy",
-    date: "Mar’ 2024",
+    date: "Mar 2024",
     credential: "#",
+    color: "#10B981",
   },
 ]
 
 export function CertificationsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [activeIndex, setActiveIndex] = useState(Math.floor(certifications.length / 2))
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [direction, setDirection] = useState(0)
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + certifications.length) % certifications.length)
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection)
+    setActiveIndex((prev) => {
+      const next = prev + newDirection
+      if (next < 0) return certifications.length - 1
+      if (next >= certifications.length) return 0
+      return next
+    })
   }
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % certifications.length)
+  const variants = {
+    enter: (d: number) => ({
+      x: d > 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (d: number) => ({
+      x: d < 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9,
+    }),
   }
 
   return (
-    <section id="certifications" className="py-24 bg-[#0a0a0a]" ref={ref}>
+    <section id="certifications" className="py-24 relative" ref={ref}>
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D73B02]/20 to-transparent" />
+
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -57,102 +83,149 @@ export function CertificationsSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-[#FFFFFF] mb-4" style={{ fontFamily: "var(--font-space-grotesk)" }}>
             <span className="text-[#D73B02]">Certifications</span>
           </h2>
-          <div className="w-24 h-1 bg-[#D73B02] mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#D73B02] to-[#FF6B35] mx-auto rounded-full" />
         </motion.div>
 
-        {/* Domino slider */}
-        <div className="relative max-w-6xl mx-auto">
-          <div className="flex items-center justify-center gap-4 perspective-1000">
-            {certifications.map((cert, index) => {
-              const distance = index - activeIndex
-              const absDistance = Math.abs(distance)
-              const isActive = index === activeIndex
-
-              if (absDistance > 2) return null
-
-              return (
+        {/* Grid layout for certifications */}
+        <div className="max-w-5xl mx-auto">
+          {/* Featured card - current cert */}
+          <div className="relative mb-8">
+            <div className="relative h-[280px] md:h-[220px] overflow-hidden">
+              <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.div
-                  key={cert.title}
-                  className="cursor-pointer"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: isInView ? (isActive ? 1 : 0.5 - absDistance * 0.15) : 0,
-                    scale: isActive ? 1 : 0.85 - absDistance * 0.1,
-                    x: distance * 20,
-                    z: isActive ? 0 : -100 * absDistance,
-                    rotateY: distance * 5,
+                  key={activeIndex}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
                   }}
-                  transition={{ duration: 0.4 }}
-                  onClick={() => setActiveIndex(index)}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    zIndex: isActive ? 10 : 10 - absDistance,
-                  }}
+                  className="absolute inset-0"
                 >
-                  <div
-                    className={`w-64 md:w-80 p-6 rounded-xl border transition-all duration-300 ${
-                      isActive
-                        ? "bg-[#0a0a0a] border-[#D73B02] shadow-[0_0_40px_rgba(215,59,2,0.2)]"
-                        : "bg-[#0a0a0a]/50 border-[#2a2a2a]"
-                    }`}
-                  >
-                    <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-lg bg-[#D73B02]/10">
-                      <Award className={`w-6 h-6 ${isActive ? "text-[#D73B02]" : "text-[#AAAAAA]"}`} />
-                    </div>
-                    <h3 className={`text-lg font-semibold mb-2 ${isActive ? "text-[#FFFFFF]" : "text-[#AAAAAA]"}`}>
-                      {cert.title}
-                    </h3>
-                    <p className="text-sm text-[#AAAAAA] mb-1">{cert.issuer}</p>
-                    <p className="text-xs text-[#AAAAAA]/70 mb-4">{cert.date}</p>
-                    {isActive && (
-                      <motion.a
-                        href={cert.credential}
-                        className="inline-flex items-center text-sm text-[#D73B02] hover:underline"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
+                  <div className="h-full rounded-3xl border border-[#ffffff]/10 hover:border-[#D73B02]/50 bg-gradient-to-br from-[#111111]/40 to-[#050505]/30 backdrop-blur-xl overflow-hidden p-8 relative shadow-2xl transition-colors duration-500">
+                    {/* Glowing Accent Top Bar */}
+                    <div
+                      className="absolute top-0 left-0 right-0 h-1"
+                      style={{
+                        background: `linear-gradient(90deg, transparent, ${certifications[activeIndex].color}, transparent)`,
+                        boxShadow: `0 0 20px ${certifications[activeIndex].color}`
+                      }}
+                    />
+                    {/* Premium Ambient Background glow */}
+                    <div
+                      className="absolute -top-32 -right-32 w-96 h-96 rounded-full blur-[100px] opacity-[0.15]"
+                      style={{ background: certifications[activeIndex].color }}
+                    />
+
+                    <div className="flex items-start gap-6 relative z-10">
+                      <div
+                        className="w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner"
+                        style={{ 
+                          background: `linear-gradient(135deg, ${certifications[activeIndex].color}20, transparent)`, 
+                          border: `1px solid ${certifications[activeIndex].color}40`,
+                          boxShadow: `0 8px 32px ${certifications[activeIndex].color}20` 
+                        }}
                       >
-                        View Credential
-                        <ExternalLink className="w-3 h-3 ml-1" />
-                      </motion.a>
-                    )}
+                        <Award className="w-10 h-10 drop-shadow-md" style={{ color: certifications[activeIndex].color }} />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-3xl font-bold text-[#FFFFFF] mb-3 tracking-tight">{certifications[activeIndex].title}</h3>
+                        <p className="text-[#AAAAAA] mb-2 text-lg font-medium">{certifications[activeIndex].issuer}</p>
+                        <div className="flex items-center gap-3 mb-6">
+                           <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#222222] text-[#CCCCCC]">
+                             {certifications[activeIndex].date}
+                           </span>
+                        </div>
+                        <a
+                          href={certifications[activeIndex].credential}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg relative overflow-hidden group"
+                          style={{
+                            background: `linear-gradient(90deg, ${certifications[activeIndex].color}15, transparent)`,
+                            color: certifications[activeIndex].color,
+                            border: `1px solid ${certifications[activeIndex].color}40`,
+                          }}
+                        >
+                          <span className="relative z-10 flex items-center gap-2">
+                            View Credential
+                            <ExternalLink className="w-4 h-4" />
+                          </span>
+                          <div className="absolute inset-0 bg-white/5 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
-              )
-            })}
+              </AnimatePresence>
+            </div>
           </div>
 
-          {/* Navigation buttons */}
-          <div className="flex justify-center gap-4 mt-8">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handlePrev}
-              className="border-[#2a2a2a] text-[#AAAAAA] hover:border-[#D73B02] hover:text-[#D73B02]"
+          {/* Navigation */}
+          <div className="flex items-center justify-center gap-6">
+            <button
+              onClick={() => paginate(-1)}
+              className="w-10 h-10 rounded-full border border-[#2a2a2a] flex items-center justify-center text-[#AAAAAA] hover:border-[#D73B02] hover:text-[#D73B02] transition-all hover:scale-110"
             >
               <ChevronLeft className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handleNext}
-              className="border-[#2a2a2a] text-[#AAAAAA] hover:border-[#D73B02] hover:text-[#D73B02]"
+            </button>
+
+            <div className="flex gap-2">
+              {certifications.map((cert, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setDirection(index > activeIndex ? 1 : -1)
+                    setActiveIndex(index)
+                  }}
+                  className="relative group"
+                >
+                  <div
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === activeIndex ? "w-8" : "w-2 hover:w-4"
+                    }`}
+                    style={{
+                      background: index === activeIndex ? cert.color : "#2a2a2a",
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => paginate(1)}
+              className="w-10 h-10 rounded-full border border-[#2a2a2a] flex items-center justify-center text-[#AAAAAA] hover:border-[#D73B02] hover:text-[#D73B02] transition-all hover:scale-110"
             >
               <ChevronRight className="w-5 h-5" />
-            </Button>
+            </button>
           </div>
 
-          {/* Dots indicator */}
-          <div className="flex justify-center gap-2 mt-4">
-            {certifications.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === activeIndex ? "bg-[#D73B02] w-6" : "bg-[#2a2a2a] hover:bg-[#AAAAAA]"
+          {/* Thumbnail row */}
+          <div className="grid grid-cols-4 gap-3 mt-6">
+            {certifications.map((cert, index) => (
+              <motion.button
+                key={cert.title}
+                onClick={() => {
+                  setDirection(index > activeIndex ? 1 : -1)
+                  setActiveIndex(index)
+                }}
+                className={`text-left p-4 rounded-2xl border transition-all duration-300 ${
+                  index === activeIndex
+                    ? "border-[#D73B02]/50 bg-gradient-to-br from-[#D73B02]/10 to-transparent shadow-[0_0_15px_rgba(215,59,2,0.15)]"
+                    : "border-[#2a2a2a] bg-[#111111]/40 hover:border-[#444444] hover:bg-[#1A1A1A]"
                 }`}
-                aria-label={`Go to certification ${index + 1}`}
-              />
+                whileHover={{ y: -4, scale: 1.02 }}
+              >
+                <div
+                  className="w-3 h-3 rounded-full mb-3 shadow-inner"
+                  style={{ background: cert.color, boxShadow: `0 0 10px ${cert.color}` }}
+                />
+                <p className={`text-sm font-bold line-clamp-1 ${index === activeIndex ? "text-[#FFFFFF]" : "text-[#AAAAAA]"}`}>
+                  {cert.title}
+                </p>
+                <p className="text-xs text-[#888888] mt-1 font-medium">{cert.issuer}</p>
+              </motion.button>
             ))}
           </div>
         </div>
