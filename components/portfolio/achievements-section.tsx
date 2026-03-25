@@ -75,7 +75,7 @@ const platformAchievements = [
     ],
     badge: "Active",
     badgeColor: "from-[#FFFFFF] to-[#AAAAAA]",
-    description: "Active open-source contributor with 50+ repositories spanning AI/ML projects, web apps, and competitive programming solutions.",
+    description: "Active contributor with 20+ repositories spanning AI/ML projects, web apps, and competitive programming solutions.",
   },
 ]
 

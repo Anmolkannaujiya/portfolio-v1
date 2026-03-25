@@ -9,7 +9,7 @@ const certifications = [
     title: "Design and Implementation of Human Computer Interface",
     issuer: "NPTEL",
     date: "Nov 2025",
-    credential: "/Design & Implementation of Human-Computer Interfaces (2).pdf",
+    credential: "/certificate/nptel",
     color: "#3B82F6",
   },
   {
@@ -23,7 +23,7 @@ const certifications = [
     title: "Web Development",
     issuer: "Cipherschools",
     date: "Sept 2025",
-    credential: "#",
+    credential: "https://www.linkedin.com/posts/anmolkannaujiya_excited-to-share-my-recent-learning-journey-activity-7380057333923622912-4aDY?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEUqEz4B385H1xvKqVNCDcQ6YtQTU0qUkH8",
     color: "#8B5CF6",
   },
   {
@@ -141,6 +141,8 @@ export function CertificationsSection() {
                         </div>
                         <a
                           href={certifications[activeIndex].credential}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg relative overflow-hidden group"
                           style={{
                             background: `linear-gradient(90deg, ${certifications[activeIndex].color}15, transparent)`,

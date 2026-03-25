@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { BookOpen, Calendar, Building, Sparkles, Rocket } from "lucide-react"
+import { BookOpen, Calendar, Building, Sparkles, Rocket, ExternalLink } from "lucide-react"
 
 const trainings = [
   {
@@ -11,6 +11,7 @@ const trainings = [
     duration: "Jun 2025 – Jul 2025",
     description: "Gained a solid understanding of core ML concepts. Implemented ML algorithms like Linear Regression, Logistic Regression, Decision Trees, KNN, and Neural Networks. Built end-to-end models.",
     skills: ["Supervised Learning", "Unsupervised Learning", "Neural Networks"],
+    credential: "https://files.lpu.in/umsweb/skilldevcourse/SkillDevelopmentCertificates/12314634_893_20_08_2025.pdf?_gl=1*2hdz3z*_gcl_au*MjA3NDM5NDc3MC4xNzc0NDMwNjg5",
   },
 ]
 
@@ -88,7 +89,7 @@ export function TrainingSection() {
                     {training.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {training.skills.map((skill) => (
                       <span
                         key={skill}
@@ -98,6 +99,25 @@ export function TrainingSection() {
                       </span>
                     ))}
                   </div>
+
+                  {training.credential && (
+                    <div>
+                      <a
+                        href={training.credential}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105"
+                        style={{
+                          background: "rgba(215, 59, 2, 0.1)",
+                          color: "#D73B02",
+                          border: "1px solid rgba(215, 59, 2, 0.3)",
+                        }}
+                      >
+                        View Certificate
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
