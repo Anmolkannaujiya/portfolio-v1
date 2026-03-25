@@ -35,19 +35,19 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 const stats = [
   { label: "Projects", value: 10, suffix: "+", icon: Code2 },
   { label: "Certifications", value: 4, suffix: "+", icon: Award },
-  { label: "Problems Solved", value: 200, suffix: "+", icon: Target },
+  { label: "Problems Solved", value: 150, suffix: "+", icon: Target },
 ]
 
 const highlights = [
   {
     icon: GraduationCap,
     title: "Education",
-    description: "B.Tech in Computer Science with focus on AI, Data Science & Machine Learning.",
+    description: "B.Tech in Computer Science with focus on Data Science, Machine Learning & Deep Learning.",
   },
   {
     icon: Target,
     title: "Mission",
-    description: "Leverage AI and data-driven approaches to solve complex real-world challenges.",
+    description: "Leverage AI and data-driven approaches to solve complex challenges and create meaningful impact.",
   },
   {
     icon: Sparkles,
@@ -61,8 +61,8 @@ const education = [
     institution: "Lovely Professional University",
     location: "Punjab, India",
     degree: "Bachelor of Technology — Computer Science & Engineering",
-    specialization: "Specialization in AI & Data Science",
-    grade: "CGPA: 6.73",
+    specialization: "Specialization in Data Science",
+    grade: "CGPA: 6.84",
     duration: "Aug 2023 – Present",
     type: "college" as const,
   },
@@ -71,17 +71,17 @@ const education = [
     location: "Saidpura, Ballia",
     degree: "Intermediate (12th)",
     specialization: "Science Stream — PCM",
-    grade: "Percentage: 60.6%",
-    duration: "Mar 2018 – Jul 2020",
+    grade: "Percentage: 70.6%",
+    duration: "Jun 2020 – Jul 2022",
     type: "school" as const,
   },
   {
     institution: "RPM Academy",
     location: "Kusmhi, Gorakhpur",
     degree: "Matriculation (10th)",
-    specialization: "General Studies",
+    /*specialization: "General Studies",*/
     grade: "CGPA: 10.0",
-    duration: "Apr 2015 – Jun 2017",
+    duration: "Apr 2018 – Jun 2020",
     type: "school" as const,
   },
 ]
@@ -118,14 +118,14 @@ export function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p className="text-lg text-[#AAAAAA] leading-relaxed mb-6">
-              I&apos;m a passionate Computer Science student specializing in Artificial Intelligence and Data Science.
+              I&apos;m a passionate Computer Science student specializing in Data Science and Artificial Intelligence.
               My journey in tech is driven by an insatiable curiosity to understand how machines can learn and
               make intelligent decisions.
             </p>
             <p className="text-lg text-[#AAAAAA] leading-relaxed mb-8">
               I believe in building solutions that not only work but make a meaningful
               impact on people&apos;s lives. Currently expanding my skillset into DevOps and cloud technologies
-              to build production-grade AI systems.
+              to better understand how systems are built, deployed, and maintained in real environments.
             </p>
 
             {/* Status indicator */}
@@ -215,9 +215,8 @@ export function AboutSection() {
                   initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.7 + index * 0.15 }}
-                  className={`relative flex md:items-center ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  className={`relative flex md:items-center ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                    }`}
                 >
                   {/* Dot */}
                   <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-[#D73B02] ring-4 ring-[#000000] md:-translate-x-1/2 -translate-x-1/2 top-6 z-10">
@@ -225,9 +224,8 @@ export function AboutSection() {
                   </div>
 
                   {/* Content */}
-                  <div className={`w-full md:w-[calc(50%-2rem)] ml-6 md:ml-0 ${
-                    index % 2 === 0 ? "md:pr-12" : "md:pl-12"
-                  }`}>
+                  <div className={`w-full md:w-[calc(50%-2rem)] ml-6 md:ml-0 ${index % 2 === 0 ? "md:pr-12" : "md:pl-12"
+                    }`}>
                     <div className="bg-[#0a0a0a]/40 backdrop-blur-md border border-[#ffffff]/5 rounded-xl p-5 hover:border-[#D73B02]/30 transition-all duration-300 hover:shadow-[0_0_25px_rgba(215,59,2,0.08)]">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-2">

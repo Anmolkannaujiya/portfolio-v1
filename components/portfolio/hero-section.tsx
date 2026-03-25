@@ -133,7 +133,7 @@ export function HeroSection() {
             
             {/* Image Box */}
             <motion.div
-              className="flex-1 rounded-3xl p-1 relative group min-h-[320px] shadow-2xl"
+              className="flex-1 rounded-3xl p-1 relative group h-[280px] md:h-auto md:min-h-[320px] shadow-2xl"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 3 }}

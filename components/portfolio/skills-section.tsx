@@ -2,17 +2,17 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { 
-  SiPython, SiCplusplus, SiC, SiJavascript, SiMysql, 
+import {
+  SiPython, SiCplusplus, SiC, SiJavascript, SiMysql,
   SiPandas, SiNumpy, SiScikitlearn, SiTensorflow, SiPytorch,
-  SiReact, SiNextdotjs, SiTailwindcss, SiHtml5, SiCss,
+  SiHtml5, SiCss,
   SiDocker, SiKubernetes, SiLinux, SiGithubactions,
-  SiGit, SiGithub, SiJupyter 
+  SiGit, SiGithub, SiJupyter,
+  SiHuggingface, SiChainlink, SiApachehadoop
 } from "react-icons/si"
 import { VscVscode } from "react-icons/vsc"
 import { FaCloud, FaAws } from "react-icons/fa"
 
-// Replaces the emojis with sleek Si/Hi icons, and consistent naming
 const skillCategories = [
   {
     title: "Programming Languages",
@@ -21,11 +21,11 @@ const skillCategories = [
       { name: "C++", icon: SiCplusplus, color: "#00599C" },
       { name: "C", icon: SiC, color: "#A8B9CC" },
       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-      { name: "SQL", icon: SiMysql, color: "#4479A1" }, // General representation for SQL
+      { name: "SQL", icon: SiMysql, color: "#4479A1" },
     ],
   },
   {
-    title: "AI & Data Science",
+    title: "Data Science & Machine Learning",
     skills: [
       { name: "Pandas", icon: SiPandas, color: "#150458" },
       { name: "NumPy", icon: SiNumpy, color: "#013243" },
@@ -35,13 +35,17 @@ const skillCategories = [
     ],
   },
   {
-    title: "Web Development",
+    title: "AI Frameworks & Tools",
+    skills: [
+      { name: "Hugging Face", icon: SiHuggingface, color: "#FFD21E" },
+      { name: "LangChain", icon: SiChainlink, color: "#2A5ADA" },
+    ],
+  },
+  {
+    title: "Web Fundamentals",
     skills: [
       { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
       { name: "CSS3", icon: SiCss, color: "#1572B6" },
-      { name: "React", icon: SiReact, color: "#61DAFB" },
-      { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     ],
   },
   {
@@ -52,6 +56,12 @@ const skillCategories = [
       { name: "AWS", icon: FaAws, color: "#232F3E" },
       { name: "CI/CD", icon: SiGithubactions, color: "#2088FF" },
       { name: "Linux", icon: SiLinux, color: "#FCC624" },
+    ],
+  },
+  {
+    title: "Data Engineering & Big Data",
+    skills: [
+      { name: "Apache Hadoop", icon: SiApachehadoop, color: "#66CCFF" },
     ],
   },
   {
@@ -88,7 +98,7 @@ export function SkillsSection() {
   return (
     <section id="skills" className="py-24 relative" ref={ref}>
       <div className="container mx-auto px-6 relative z-10">
-        
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -111,46 +121,46 @@ export function SkillsSection() {
         </motion.div>
 
         {/* Categories Grid */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="flex flex-col gap-16"
+          className="flex flex-col gap-10 md:gap-16"
         >
           {skillCategories.map((category) => (
-            <motion.div key={category.title} variants={itemVariants} className="border-t border-[#222222] pt-8">
-              <div className="flex flex-col md:flex-row gap-8 lg:gap-16">
-                
+            <motion.div key={category.title} variants={itemVariants} className="border-t border-[#ffffff]/5 pt-6 md:pt-8">
+              <div className="flex flex-col md:flex-row gap-4 md:gap-8 lg:gap-16">
+
                 {/* Category Title Area */}
                 <div className="w-full md:w-1/3 lg:w-1/4">
-                  <h3 className="text-xl font-semibold text-[#FFFFFF] tracking-tight mb-2">
+                  <h3 className="text-lg md:text-xl font-semibold text-[#FFFFFF] tracking-tight mb-2">
                     {category.title}
                   </h3>
                 </div>
-                
+
                 {/* Skills Interactive Badges Container */}
-                <div className="w-full md:w-2/3 lg:w-3/4 flex flex-wrap gap-3">
+                <div className="w-full md:w-2/3 lg:w-3/4 flex flex-wrap gap-2 md:gap-3">
                   {category.skills.map((skill, i) => (
-                    <motion.div 
+                    <motion.div
                       key={skill.name}
                       initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.05, duration: 0.3 }}
                       viewport={{ once: true }}
                       whileHover={{ y: -5, scale: 1.05 }}
-                      className="group relative flex items-center gap-2.5 px-4 py-2.5 bg-[#111111]/40 backdrop-blur-md border border-[#ffffff]/5 hover:border-[#D73B02]/50 rounded-xl transition-colors duration-300 cursor-default overflow-hidden shadow-lg"
+                      className="group relative flex items-center gap-2 md:gap-2.5 px-3 md:px-4 py-2 md:py-2.5 bg-[#111111]/40 backdrop-blur-md border border-[#ffffff]/5 hover:border-[#D73B02]/50 rounded-xl transition-colors duration-300 cursor-default overflow-hidden shadow-lg"
                     >
                       {/* Premium glow on hover */}
-                      <div 
+                      <div
                         className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
                         style={{ background: `radial-gradient(circle at center, ${skill.color} 0%, transparent 70%)` }}
                       />
-                      
-                      <div className="relative z-10 flex items-center justify-center w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-md" style={{ color: skill.color }}>
+
+                      <div className="relative z-10 flex items-center justify-center w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-md" style={{ color: skill.color }}>
                         <skill.icon className="w-full h-full drop-shadow-[0_0_8px_currentColor]" />
                       </div>
-                      
-                      <span className="relative z-10 text-sm font-medium text-[#CCCCCC] group-hover:text-[#FFFFFF] transition-colors">
+
+                      <span className="relative z-10 text-xs md:text-sm font-medium text-[#CCCCCC] group-hover:text-[#FFFFFF] transition-colors">
                         {skill.name}
                       </span>
                     </motion.div>
