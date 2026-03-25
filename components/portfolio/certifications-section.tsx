@@ -6,17 +6,17 @@ import { Award, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 
 const certifications = [
   {
-    title: "Design and Implementation of HCI",
+    title: "Design and Implementation of Human Computer Interface",
     issuer: "NPTEL",
     date: "Nov 2025",
-    credential: "#",
+    credential: "/Design & Implementation of Human-Computer Interfaces (2).pdf",
     color: "#3B82F6",
   },
   {
     title: "Oracle Cloud Infrastructure Foundations Associate",
     issuer: "Oracle University",
     date: "Oct 2025",
-    credential: "#",
+    credential: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=C57469A1EC09178C828A062D0AA54C1FF3DC5429B7A0D614FD3A7950FF63D309",
     color: "#EF4444",
   },
   {
@@ -123,10 +123,10 @@ export function CertificationsSection() {
                     <div className="flex items-start gap-6 relative z-10">
                       <div
                         className="w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner"
-                        style={{ 
-                          background: `linear-gradient(135deg, ${certifications[activeIndex].color}20, transparent)`, 
+                        style={{
+                          background: `linear-gradient(135deg, ${certifications[activeIndex].color}20, transparent)`,
                           border: `1px solid ${certifications[activeIndex].color}40`,
-                          boxShadow: `0 8px 32px ${certifications[activeIndex].color}20` 
+                          boxShadow: `0 8px 32px ${certifications[activeIndex].color}20`
                         }}
                       >
                         <Award className="w-10 h-10 drop-shadow-md" style={{ color: certifications[activeIndex].color }} />
@@ -135,9 +135,9 @@ export function CertificationsSection() {
                         <h3 className="text-3xl font-bold text-[#FFFFFF] mb-3 tracking-tight">{certifications[activeIndex].title}</h3>
                         <p className="text-[#AAAAAA] mb-2 text-lg font-medium">{certifications[activeIndex].issuer}</p>
                         <div className="flex items-center gap-3 mb-6">
-                           <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#222222] text-[#CCCCCC]">
-                             {certifications[activeIndex].date}
-                           </span>
+                          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#222222] text-[#CCCCCC]">
+                            {certifications[activeIndex].date}
+                          </span>
                         </div>
                         <a
                           href={certifications[activeIndex].credential}
@@ -182,9 +182,8 @@ export function CertificationsSection() {
                   className="relative group"
                 >
                   <div
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeIndex ? "w-8" : "w-2 hover:w-4"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? "w-8" : "w-2 hover:w-4"
+                      }`}
                     style={{
                       background: index === activeIndex ? cert.color : "#2a2a2a",
                     }}
@@ -210,11 +209,10 @@ export function CertificationsSection() {
                   setDirection(index > activeIndex ? 1 : -1)
                   setActiveIndex(index)
                 }}
-                className={`text-left p-4 rounded-2xl border transition-all duration-300 ${
-                  index === activeIndex
-                    ? "border-[#D73B02]/50 bg-gradient-to-br from-[#D73B02]/10 to-transparent shadow-[0_0_15px_rgba(215,59,2,0.15)]"
-                    : "border-[#2a2a2a] bg-[#111111]/40 hover:border-[#444444] hover:bg-[#1A1A1A]"
-                }`}
+                className={`text-left p-4 rounded-2xl border transition-all duration-300 ${index === activeIndex
+                  ? "border-[#D73B02]/50 bg-gradient-to-br from-[#D73B02]/10 to-transparent shadow-[0_0_15px_rgba(215,59,2,0.15)]"
+                  : "border-[#2a2a2a] bg-[#111111]/40 hover:border-[#444444] hover:bg-[#1A1A1A]"
+                  }`}
                 whileHover={{ y: -4, scale: 1.02 }}
               >
                 <div

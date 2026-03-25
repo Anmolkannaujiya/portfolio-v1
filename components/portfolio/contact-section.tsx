@@ -100,7 +100,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="text-xs text-[#AAAAAA] uppercase tracking-wider">Location</p>
-                  <p className="text-[#FFFFFF] text-sm">Barhalganj, Gorakhpur, UP, India</p>
+                  <p className="text-[#FFFFFF] text-sm">Gorakhpur, UP</p>
                 </div>
               </div>
             </div>

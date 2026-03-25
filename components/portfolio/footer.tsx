@@ -85,7 +85,11 @@ export function Footer() {
               </p>
               <div className="flex items-center gap-2 text-sm text-[#AAAAAA] mb-4">
                 <MapPin className="w-4 h-4 text-[#D73B02] flex-shrink-0" />
-                <span>Barhalganj, Gorakhpur, UP, India 273402</span>
+                <span className="flex flex-col leading-relaxed">
+                  <span>Barhalganj, Gorakhpur</span>
+                  <span>UP, India</span>
+                  <span>273402</span>
+                </span>
               </div>
               <div className="flex items-center gap-2 text-sm text-[#AAAAAA]">
                 <Mail className="w-4 h-4 text-[#D73B02] flex-shrink-0" />

@@ -81,6 +81,12 @@ const platformAchievements = [
 
 const participations = [
   {
+    event: "The Discussion Circle",
+    year: "Mar 2026",
+    achievement: "Participant",
+    description: "Participated in a group discussion competition focusing on collaborative communication and analytical thinking",
+  },
+  {
     event: "Entrepreneurship Conclave",
     year: "Feb 2025",
     achievement: "Lead Event Coordinator",
@@ -91,12 +97,6 @@ const participations = [
     year: "Dec 2024",
     achievement: "Finalist",
     description: "Developed AI-powered healthcare solution in 36-hour hackathon",
-  },
-  {
-    event: "The Discussion Circle",
-    year: "Mar 2026",
-    achievement: "Participant",
-    description: "Participated in a group discussion competition focusing on collaborative communication and analytical thinking",
   },
 ]
 

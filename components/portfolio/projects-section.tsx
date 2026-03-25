@@ -11,7 +11,7 @@ const projects = [
     description: "Fully responsive restaurant website with 8+ UI sections, optimized for 3 device sizes including landscape mode.",
     tech: ["HTML", "CSS", "JavaScript"],
     github: "https://github.com/Anmolkannaujiya",
-    live: "#",
+    live: "https://illustrious-genie-583892.netlify.app/",
     featured: true,
   },
   {
@@ -33,7 +33,7 @@ const projects = [
   {
     title: "Travel Preference ML Model",
     description: "ML model using Scikit-learn to predict user travel preferences — hills, beaches, or plains.",
-    tech: ["Python", "Scikit-learn"],
+    tech: ["Python", "Scikit-learn", "matplotlib"],
     github: "https://github.com/Anmolkannaujiya",
     live: "#",
     featured: false,
@@ -43,7 +43,7 @@ const projects = [
     description: "Responsive travel landing page built with HTML and CSS using float-based layouts and media queries.",
     tech: ["HTML", "CSS"],
     github: "https://github.com/Anmolkannaujiya",
-    live: "#",
+    live: "https://lovely-tanuki-6ba10d.netlify.app/",
     featured: false,
   },
   {
@@ -57,7 +57,7 @@ const projects = [
   {
     title: "AI PDF Summarizer",
     description: "Python app using Gemini API for document summarization and chatbot-based Q&A on uploaded PDFs.",
-    tech: ["Python", "Gemini API"],
+    tech: ["Python", "PyPdf2", "sumy", "nltk", "flask"],
     github: "https://github.com/Anmolkannaujiya",
     live: "#",
     featured: false,
