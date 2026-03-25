@@ -127,9 +127,9 @@ export function TrainingSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="group"
+                  className="group h-full"
                 >
-                  <div className="bg-gradient-to-br from-[#0a0a0a]/80 to-[#0a0a0a]/40 border border-[#2a2a2a] rounded-xl p-5 hover:border-[#D73B02]/30 transition-all duration-300 hover:shadow-[0_4px_30px_rgba(215,59,2,0.06)]">
+                  <div className="h-full bg-gradient-to-br from-[#0a0a0a]/80 to-[#0a0a0a]/40 border border-[#2a2a2a] rounded-xl p-5 hover:border-[#D73B02]/30 transition-all duration-300 hover:shadow-[0_4px_30px_rgba(215,59,2,0.06)] flex flex-col">
                     <div className="flex items-center justify-between mb-3">
                       <h4 className="text-lg font-semibold text-[#FFFFFF]">{item.title}</h4>
                       <span className="text-sm text-[#D73B02] font-bold tabular-nums">{item.progress}%</span>

@@ -93,16 +93,10 @@ const participations = [
     description: "Developed AI-powered healthcare solution in 36-hour hackathon",
   },
   {
-    event: "CodeJam University Round",
-    year: "Oct 2024",
-    achievement: "Top 50 Qualifier",
-    description: "Qualified among top 50 coders in university-level coding competition",
-  },
-  {
-    event: "LPU Tech Fest",
-    year: "Mar 2024",
-    achievement: "Best Project Award",
-    description: "Won best project award for ML-powered traffic prediction system",
+    event: "The Discussion Circle",
+    year: "Mar 2026",
+    achievement: "Participant",
+    description: "Participated in a group discussion competition focusing on collaborative communication and analytical thinking",
   },
 ]
 

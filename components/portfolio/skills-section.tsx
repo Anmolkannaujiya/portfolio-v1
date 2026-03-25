@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import {
-  SiPython, SiCplusplus, SiC, SiJavascript, SiMysql,
+  SiPython, SiCplusplus, SiC, SiMysql,
   SiPandas, SiNumpy, SiScikitlearn, SiTensorflow, SiPytorch,
   SiHtml5, SiCss,
   SiDocker, SiKubernetes, SiLinux, SiGithubactions,
@@ -11,7 +11,7 @@ import {
   SiHuggingface, SiChainlink, SiApachehadoop
 } from "react-icons/si"
 import { VscVscode } from "react-icons/vsc"
-import { FaCloud, FaAws } from "react-icons/fa"
+import { FaCloud, FaAws, FaJava } from "react-icons/fa"
 
 const skillCategories = [
   {
@@ -20,7 +20,7 @@ const skillCategories = [
       { name: "Python", icon: SiPython, color: "#3776AB" },
       { name: "C++", icon: SiCplusplus, color: "#00599C" },
       { name: "C", icon: SiC, color: "#A8B9CC" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "Java", icon: FaJava, color: "#ED8B00" },
       { name: "SQL", icon: SiMysql, color: "#4479A1" },
     ],
   },
